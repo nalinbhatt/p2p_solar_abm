@@ -1,13 +1,14 @@
-
-
 from scipy.stats import norm
 import numpy as np
 
-class ConsumerAgent:
-    def __init__(self, index, has_pv, floor_area):
-        self.index = index
-        self.has_pv = has_pv
-        self.floor_area = floor_area
+
+class Household:
+    def __init__(self, index, has_pv, floor_area, wta, wtp):
+        self.index = index # index
+        self.has_pv = has_pv # has solar or not 
+        self.floor_area = floor_area # floor area 
+        self.wta = wta  # willingness to accept, reservation price for selling
+        self.wtp = wtp # willingness to pay, reservation price for buying
         self.roof_area = self.floor_area * 1.12
         self.days_month = 31
         self.minutes_month = self.days_month * 24 * 60
@@ -56,6 +57,7 @@ class ConsumerAgent:
         self.calc_annual_prod()
         self.calc_prod_20()
 
+    
     def calc_peak_power(self):
         self.peak_power = self.irradiation * self.solar_proportion * self.roof_area * self.cell_efficiency
 
@@ -70,6 +72,8 @@ class ConsumerAgent:
 
     def set_electricity_use(self, elec_use):
         self.electricity_use = elec_use
+        
+        print(self.electricity_use)
 
     def get_electricity_use(self, minute):
         return self.electricity_use[minute]
@@ -93,4 +97,18 @@ class ConsumerAgent:
                 self.solar_prod_forecast_increment[i] = np.sum(self.solar_prod_forecast[start_minute:end_minute]) / 1000 / 60
             else:
                 self.solar_prod_forecast_increment[i] = 0
+
+    def __str__(self):
+        return (f"Household(Index: {self.index}, Has PV: {'Yes' if self.has_pv else 'No'}, "
+                f"Type: {'Prosumer' if self.has_pv else 'Consumer'},"
+                f"Floor Area: {self.floor_area} sqft, "
+                f"Willingness to Accept: ${self.wta:.2f}, "
+                f"Willingness to Pay: ${self.wtp:.2f})")
+    
+
+
+
+    
+
+        
 
