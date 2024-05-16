@@ -5,6 +5,8 @@ import json
 import pandas as pd
 import os
 import numpy as np 
+import math 
+
 
 class Market:
     def __init__(self, config):
@@ -31,6 +33,7 @@ class Market:
         self.minutes_in_month = self.days_in_month * 24 * 60
         self.hours_in_month = self.days_in_month * 24
         self.day_light_savings = False
+        self.observe_daylight_savings = False # Hawaii doesn't observe daylight savings 
         self.begin_month_day = 244
 
         # Internal State Variables
@@ -99,9 +102,6 @@ class Market:
         print(f"shortfall = {self.shortfall}")
         print(f"overproduction = {self.overproduction}")
 
-
-   
-
     def initialize_households(self):
         """ 
         Initialize the parameters of the households. Note, the model stores each
@@ -113,19 +113,28 @@ class Market:
         RETURN: 
             None 
         """
+
         # Initialize households and demand ledgers
         household_configs = self.sim_config["household_params"]
-        total_houses = len(household_configs)
-        self.households = []
+        total_houses = len(household_configs) #total households
+        self.households = [] #list to store household objects
+
+        #Household Energy Demand initialization
         demandLedger = np.zeros((total_houses, self.hours_in_month))
         demandLedgerMinutely = np.zeros((total_houses, self.hours_in_month * 60))
 
-        
-        hourly_cons_arr = self.load_hourly_consumption()
-        # Converts DataFrame column to Series
-        hourly_demand_series = hourly_cons_arr['hourly_consumption'].squeeze()  
+        hourly_cons_df = self.load_data_file("hourly_consumption")
+        #Converts DataFrame column to Series
+        hourly_demand_series = hourly_cons_df['hourly_consumption'].squeeze()  
 
-        print(hourly_demand_series.shape)
+        #Household/Prosumer Energy solar irradiance array
+        minutely_monthly_prod_df = self.load_data_file("production_monthly_minutely")
+        minutely_monthly_prod_series = minutely_monthly_prod_df.squeeze() 
+
+        #solar energy production array 
+        solar_energy_production_arr = self.adjustIrradiance(minutely_monthly_prod_series)
+
+        #print(solar_energy_production_arr[0:1000])
         # Combined initialization loop
         for i, hh_config in enumerate(household_configs):
             index = hh_config["Index"]
@@ -139,7 +148,7 @@ class Market:
             
             # Calculate hourly demand scaled by floor area
             demandLedger[i] = (hourly_demand_series / self.benchmark_area) * floor_area
-            
+
             #NOTE: 
             #This for loop sets the value of hourly demand 
             #to each minute, as opposed to dividing by 60 
@@ -153,11 +162,19 @@ class Market:
             
             #we set their minutely use
             household_obj.set_electricity_use(demandLedgerMinutely[i]) 
-            
-            self.households.append(household_obj)
 
+            #we set their minutely production 
+            #There are a lot of assumptions
+            #for more details on this equation look at the jupyter notebook
+            house_estimated_minutely_production = solar_energy_production_arr * 0.092903 * (household_obj.roof_area * 0.10) * 0.253 * 0.77
+            household_obj.set_solar_production(house_estimated_minutely_production)
+            household_obj.set_forecasted_solar_production() #set the solar forecast 
 
             
+            #Lastly, add households to a household list
+            self.households.append(household_obj) 
+
+   
     def run_simulation(self): 
         """  
         #TODO: update as you go:
@@ -172,18 +189,117 @@ class Market:
         """
         print(f"-"*50, "RUN SIMULATION", f"-"*50)
         print(f"")
-
-        self.initialize_households2()
+ 
+        return self.initialize_households()
 
         # for timestep in range(self.number_increments): 
         #     print(f"-"*20, f"timestep : {timestep}", f"-"*20)
 
-    def load_hourly_consumption(self):
+
+    def adjustIrradiance(self, irradianceArray):
+        """ 
+        Uses minutely irradiance to calculate the amount of solar energy produced 
+        from a fixed-tilt solar panel. 
+
+        Input: 
+            irradianceArray (np arr): one dimensional minutely solar irradience 
+                                     array of length equivalant to minutes in a
+                                     month. 
+        """
+
+        declination = np.zeros(self.minutes_in_month)
+        hourAngle = np.zeros(self.minutes_in_month)
+        altitudeAngle = np.zeros(self.minutes_in_month)
+        solarAzimuth = np.zeros(self.minutes_in_month)
+        C = np.zeros(self.minutes_in_month)
+        incidenceAngle = np.zeros(self.minutes_in_month)
+        beamRad = np.zeros(self.minutes_in_month)
+        diffuseRad = np.zeros(self.minutes_in_month)
+        reflectedRad = np.zeros(self.minutes_in_month)
+        collectorRad = np.zeros(self.minutes_in_month)
+
+        for i in range(self.days_in_month):
+            currentDeclination = 23.45 * math.sin(math.radians((360/365) * (self.begin_month_day + i)))
+            minuteOfSolarNoon = self.solarNoon(self.begin_month_day + i)
+            currentC = 0.095 + (0.04 * math.sin(math.radians((360/365) * (self.begin_month_day + i - 100))))
+
+            for j in range(1440): #minutes in one day = 60*24 = 1440  
+                currentMinute = (1440 * i) + j
+                declination[currentMinute] = currentDeclination
+                minutesFromSolarNoon = (minuteOfSolarNoon - j)
+                hourAngle[currentMinute] = (minutesFromSolarNoon / 60.0) * 15.0
+                altitudeAngle[currentMinute] = math.degrees(math.asin(math.cos(math.radians(self.latitude)) * 
+                                            math.cos(math.radians(declination[currentMinute])) * 
+                                            math.cos(math.radians(hourAngle[currentMinute])) + 
+                                            (math.sin(math.radians(self.latitude)) * 
+                                             math.sin(math.radians(declination[currentMinute])))))
+                solarAzimuth[currentMinute] = math.degrees(math.asin((math.cos(math.radians(declination[currentMinute])) * 
+                                          math.sin(math.radians(hourAngle[currentMinute])))/
+                                          (math.cos(math.radians(altitudeAngle[currentMinute])))))
+                incidenceAngle[currentMinute] = math.degrees(math.acos(math.cos(math.radians(altitudeAngle[currentMinute])) * 
+                                           math.cos(math.radians(solarAzimuth[currentMinute])) * 
+                                           math.sin(math.radians(self.latitude)) + 
+                                           (math.sin(math.radians(altitudeAngle[currentMinute])) * 
+                                            math.cos(math.radians(self.latitude)))))
+                C[currentMinute] = currentC
+                beamRad[currentMinute] = irradianceArray[currentMinute] * math.cos(math.radians(incidenceAngle[currentMinute]))
+                diffuseRad[currentMinute] = irradianceArray[currentMinute] * currentC * ((1 + math.cos(math.radians(self.latitude))) / 2)
+                reflectedRad[currentMinute] = irradianceArray[currentMinute] * 0.2 * (currentC + math.sin(math.radians(altitudeAngle[currentMinute]))) * ((1 - math.cos(math.radians(self.latitude))) / 2)
+                collectorRad[currentMinute] = beamRad[currentMinute] + diffuseRad[currentMinute] + reflectedRad[currentMinute]
+
+        return collectorRad
+
+    def solarNoon(self, n):
+        """ 
+        Calculates the minute at which the solar noon occurs for a given day. 
+        For instance, the day has 24*60 = 1440 minutes, and the solar noon can 
+        occur at 12 pm or 720th minute of the day. Therefore the following code 
+        would return 720: 
+
+        Input: 
+            n (int): nth day of the year, if the month is september then it 
+                    ranges from 244 - 274 (30 days). 
+
+        RETURN: 
+            minute (int): minute at which the actual solar noon occurs. 
+        
+        """
+        if self.observe_daylight_savings and (69 <= n <= 307):
+            self.day_light_savings = True
+        else:
+            self.day_light_savings = False
+
+        longitudeCorrection = 4.0 * (self.local_time_meridian - self.longitude)  # Units of minutes
+        Bdegrees = (360.0/364.0) * (n - 81)
+        Bradians = math.radians(Bdegrees)
+        E = (9.87 * math.sin(2 * Bradians)) - (7.53 * math.cos(Bradians)) - (1.5 * math.sin(Bradians))  # Units of minutes
+        minutesFromClockNoon = -longitudeCorrection - E
+        minutesFromClockNoonInt = int(round(minutesFromClockNoon))
+        
+        if self.day_light_savings:
+            return (13 * 60) + minutesFromClockNoonInt
+        else:
+            return (12 * 60) + minutesFromClockNoonInt
+        
+
+    def load_data_file(self, filename):
+        """ 
+        loads the .csv datafile from under the data folder. Note, 
+        this method doesn't require an extension specification, the file 
+        is assumed to be a .csv so just the filename suffices 
+
+        INPUT: 
+            filename (str): the str filename of the data file without the 
+                            extension
+        
+        RETURN: 
+            data (pd dataframe): dataframe object read in from th csv
+        """
         # Get the directory of the current script, which is under abm
         dir_path = os.path.dirname(os.path.realpath(__file__))
 
         # Go up one level from abm to p2p_solar_abm, then into the data folder
-        file_path = os.path.join(dir_path, '..', 'data', 'hourly_consumption.csv')
+        file_path = os.path.join(dir_path, '..', 'data', f'{filename}.csv')
 
         # Ensure the path is normalized to resolve any .. or . correctly
         full_path = os.path.normpath(file_path)
@@ -191,6 +307,5 @@ class Market:
         # Reading the file
         data = pd.read_csv(full_path)
         return data
-
 
 

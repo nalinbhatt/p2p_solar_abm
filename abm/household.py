@@ -72,8 +72,8 @@ class Household:
 
     def set_electricity_use(self, elec_use):
         self.electricity_use = elec_use
-        
-        print(self.electricity_use)
+
+        #print(self.electricity_use)
 
     def get_electricity_use(self, minute):
         return self.electricity_use[minute]
@@ -85,9 +85,10 @@ class Household:
         return self.solar_prod[minute]
 
     def set_forecasted_solar_production(self):
-        normal_dist = norm(0, 0.30)
+        normal_dist = norm(0, 0.30) #scipy normal distribution object 
         forecast_multiplier = normal_dist.rvs(size=self.minutes_month) + 1
         self.solar_prod_forecast = self.solar_prod * forecast_multiplier
+
 
     def fill_solar_prod_forecast_increment(self):
         for i in range(self.number_increments):
