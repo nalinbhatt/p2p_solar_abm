@@ -1,5 +1,3 @@
-from abm.consumer_agent import ConsumerAgent
-from abm.prosumer_agent import ProsumerAgent
 from abm.household import Household
 import json 
 import pandas as pd
@@ -26,7 +24,7 @@ class Market:
         # Retail Electricity Rate --> Also used as the penalty rate
         self.retail_rate = 0.351
         # Avoided Fuel Cost Rate
-        self.avoided_fuel_cost_rate = 0.0932
+        self.avoided_fuel_cost_rate = 0.0932 
 
         # Date and Time Configuration
         self.days_in_month = 30  # Matches the production and consumption data we have
@@ -38,14 +36,14 @@ class Market:
 
         # Internal State Variables
         self.initialized = False
-        self.minute = 0
+        self.current_minute = 660 #needs to be 0
         self.increment = 60
-        self.current_increment = 1
+        self.current_increment = 12 #needs to be 1 
         self.number_increments = self.minutes_in_month // self.increment
         
         # Simulation Configuration
         self.storage_sim = 1
-        self.forecasting_method = 0
+        self.forecasting_method = 0 #perfect forecasting 
         self.lag_increments = 1
         self.number_houses = 25 #Number of household agents within the simulation
         self.simulation_steps = 20 
@@ -80,7 +78,7 @@ class Market:
         print(f"Day Light Savings: {self.day_light_savings}")
         print(f"Begin Month Day: {self.begin_month_day}")
         print(f"Initialized: {self.initialized}")
-        print(f"Minute: {self.minute}")
+        print(f"Minute: {self.current_minute}")
         print(f"Increment: {self.increment}")
         print(f"Current Increment: {self.current_increment}")
         print(f"Number of Increments: {self.number_increments}")
@@ -132,7 +130,7 @@ class Market:
         minutely_monthly_prod_series = minutely_monthly_prod_df.squeeze() 
 
         #solar energy production array 
-        solar_energy_production_arr = self.adjustIrradiance(minutely_monthly_prod_series)
+        self.solar_energy_production_arr = self.adjustIrradiance(minutely_monthly_prod_series)
 
         #print(solar_energy_production_arr[0:1000])
         # Combined initialization loop
@@ -166,13 +164,14 @@ class Market:
             #we set their minutely production 
             #There are a lot of assumptions
             #for more details on this equation look at the jupyter notebook
-            house_estimated_minutely_production = solar_energy_production_arr * 0.092903 * (household_obj.roof_area * 0.10) * 0.253 * 0.77
+            house_estimated_minutely_production = self.solar_energy_production_arr * 0.092903 * (household_obj.roof_area * 0.10) * 0.253 * 0.77
             household_obj.set_solar_production(house_estimated_minutely_production)
             household_obj.set_forecasted_solar_production() #set the solar forecast 
-
             
+
             #Lastly, add households to a household list
             self.households.append(household_obj) 
+        
 
    
     def run_simulation(self): 
@@ -188,12 +187,123 @@ class Market:
         
         """
         print(f"-"*50, "RUN SIMULATION", f"-"*50)
-        print(f"")
- 
-        return self.initialize_households()
+        print(f"-"*30, "Initializing", f"-"*30)
 
-        # for timestep in range(self.number_increments): 
-        #     print(f"-"*20, f"timestep : {timestep}", f"-"*20)
+        
+        self.initialize_households()
+        print(f"-"*30, "Initialization Complete", f"-"*30)
+
+        for timestep in range(self.number_increments): 
+            
+            self.exchangeNoStorage()
+            print(f"-"*20, f"timestep : {timestep}", f"-"*20)
+
+            return 
+
+    
+    def exchangeNoStorage(self):
+        continuation_flag = True
+        current_round = 0
+
+
+        while continuation_flag:
+            excess = np.zeros(self.number_houses)
+            demand = np.zeros(self.number_houses)
+
+            for i in range(self.number_houses):
+                print(f"-"*5, f"Household: {i}",f"-"*5)
+
+                household = self.households[i]
+
+                if self.forecasting_method == 0:  # Perfect forecasting
+                    # household.perfect_forecast = True
+                    print(f"buyer History: {self.buyer_history[i][self.current_increment - 1][0]}")
+                    demand[i] = max(household.forecast_demand_no_storage_simple() - self.buyer_history[i][self.current_increment - 1][0], 0)
+                    excess[i] = max(household.forecast_excess_no_storage_simple() - self.seller_history[i][self.current_increment - 1][0], 0)
+                elif self.forecasting_method == 1:  # Simple forecasting
+                    demand[i] = max(household.forecast_demand_no_storage_simple() - self.buyer_history[i][self.current_increment - 1][0], 0)
+                    excess[i] = max(household.forecast_excess_no_storage_simple() - self.seller_history[i][self.current_increment - 1][0], 0)
+                elif self.forecasting_method == 2:  # Complex forecasting
+                    demand[i] = max(household.forecast_demand_no_storage_complex() - self.buyer_history[i][self.current_increment - 1][0], 0)
+                    excess[i] = max(household.forecast_excess_no_storage_complex() - self.seller_history[i][self.current_increment - 1][0], 0)
+
+            print(f"demand : {demand}")
+            print(f"excess : {excess}")
+           
+            # Boolean flag for zero demand
+            zero_demand = np.all(demand <= 0)
+            if zero_demand:
+                continuation_flag = False
+
+            # Boolean flag for zero excess
+            zero_excess = np.all(excess <= 0)
+            if zero_excess:
+                print(f"zero excess shutting down now")
+                continuation_flag = False
+
+            buyer_count = np.sum(demand > 0)
+            seller_count = np.sum(excess > 0)
+            buyer_index = np.where(demand > 0)[0]
+            seller_index = np.where(excess > 0)[0]
+
+            # Order buyers by willingness to pay (WTP)
+            buyers_ordered = sorted(buyer_index, key=lambda x: self.households[x].get_wtp(), reverse=True)
+
+            # Order sellers by willingness to accept (WTA)
+            sellers_ordered = sorted(seller_index, key=lambda x: self.households[x].get_wta())
+
+            total_exchanges = min(len(buyers_ordered), len(sellers_ordered))
+
+            print(f"buyers_ordered = {buyers_ordered}")
+            print(f"sellers = {sellers_ordered}")
+            print(f"total_exchanges = {total_exchanges}")
+           
+            # Boolean flag to check WTA and WTP of first paired traders
+            if not buyers_ordered or not sellers_ordered or self.households[buyers_ordered[0]].get_wtp() < self.households[sellers_ordered[0]].get_wta():
+                continuation_flag = False
+
+
+            try:
+                print(f"wtp arr = {self.households[buyers_ordered[0]].get_wtp()}")
+                print(f"wta arr = {self.households[sellers_ordered[0]].get_wta()}")
+            except: 
+                print(f"buyers_ordered or sellers_ordered empty")
+                print(f"continuation_flag = {continuation_flag}")
+                
+
+            print(f"-"*5, f"Exchange Time", f"-"*5)
+
+            for i in range(total_exchanges):
+                print(f"Match number : {i + 1}")
+                seller_index2 = sellers_ordered[i]
+                buyer_index2 = buyers_ordered[i]
+
+
+
+                seller_wta = self.households[seller_index2].get_wta()
+                buyer_wtp = self.households[buyer_index2].get_wtp()
+                seller_cap = excess[seller_index2]
+                buyer_need = demand[buyer_index2]
+                
+                # Exchange Amount in units of kWh
+                exchange_amount = min(seller_cap, buyer_need) if seller_wta <= buyer_wtp else 0
+
+                print(f"seller_index2 = {seller_index2}, buyer_index2 = {buyer_index2}")
+                print(f"seller_wta = {seller_wta}, buyer_wtp = {buyer_wtp}")
+                print(f"seller_cap = {seller_cap}, buyer_need = {buyer_need}")
+                print(f"exchange_amount = {exchange_amount}, amount paid = {exchange_amount * buyer_wtp}")
+
+                if exchange_amount > 0:
+                    print(f"Trade Sucessful")
+                    self.seller_history[seller_index2][self.current_increment - 1][0] += exchange_amount
+                    self.seller_history[seller_index2][self.current_increment - 1][1] += buyer_wtp * exchange_amount
+                    self.buyer_history[buyer_index2][self.current_increment - 1][0] += exchange_amount
+                    self.buyer_history[buyer_index2][self.current_increment - 1][1] += buyer_wtp * exchange_amount
+
+            current_round += 1
+
+        for i in range(self.number_houses):
+            self.households[i].fill_solar_prod_forecast_increment()
 
 
     def adjustIrradiance(self, irradianceArray):

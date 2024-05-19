@@ -10,12 +10,19 @@ class Household:
         self.wta = wta  # willingness to accept, reservation price for selling
         self.wtp = wtp # willingness to pay, reservation price for buying
         self.roof_area = self.floor_area * 1.12
-        self.days_month = 31
+        self.perfect_forecast = True #All prosumers perfectly calculate their values. 
+
+        self.days_month = 30 
         self.minutes_month = self.days_month * 24 * 60
         self.increment = 60
+        #TODO: set the following back to 0 and 1 
+        self.current_minute = 2100 # this is the current minutely step the simulation household is at 
+        self.current_increment = 36 # this is the current hourly step the simulated household is at 
+
         self.number_increments = self.minutes_month // self.increment
         self.increments_per_hour = 60 // self.increment
         self.increments_per_day = 1440 // self.increment
+
         self.start_charge = 9
         self.stop_charge = 14
         self.start_charge_inc = self.increments_per_hour * self.start_charge
@@ -24,9 +31,11 @@ class Household:
         self.stop_discharge = 22
         self.start_discharge_inc = self.increments_per_hour * self.start_discharge
         self.stop_discharge_inc = self.increments_per_hour * self.stop_discharge
+
         self.cell_efficiency = 0.253
         self.irradiation = 0.0929
         self.solar_proportion = 0.10
+
         self.price_kw = 3090
         self.interest_rate = 0.07
         self.minimum_charge = 4.05
@@ -73,7 +82,13 @@ class Household:
     def set_electricity_use(self, elec_use):
         self.electricity_use = elec_use
 
-        #print(self.electricity_use)
+    def get_wtp(self):
+
+        return self.wtp
+    
+    def get_wta(self):
+        
+        return self.wta
 
     def get_electricity_use(self, minute):
         return self.electricity_use[minute]
@@ -98,6 +113,74 @@ class Household:
                 self.solar_prod_forecast_increment[i] = np.sum(self.solar_prod_forecast[start_minute:end_minute]) / 1000 / 60
             else:
                 self.solar_prod_forecast_increment[i] = 0
+
+    def forecast_demand_no_storage_simple(self):
+        """ 
+        Forecast Demand 
+        """
+
+        #print(f"Household{self.index} Entered: forecast_demand_no_storage_simple current_minute = {self.current_minute}, current_increment = {self.current_increment}")
+        
+        actual_demand = np.sum(self.electricity_use[self.current_minute:self.current_minute + self.increment]) / 1000 / 60
+        forecast_production = 0.0
+        #print(f"\tactual_demand: {actual_demand}")
+    
+        if self.perfect_forecast:
+            forecast_production = np.sum(self.solar_prod[self.current_minute:self.current_minute + self.increment]) / 1000 / 60
+        else:
+            forecast_production = (self.solar_prod[self.current_minute] / 1000) * (self.increment / 60.0)
+        #print(f"\t perfect_forecast = {self.perfect_forecast}, forecast_production: {forecast_production} ")
+    
+        if not self.has_pv:
+            forecast_production = 0
+        
+        #print(f"\t has pv = {self.has_pv}, forecast_production = {forecast_production}")
+
+        forecast_demand = max(actual_demand - forecast_production, 0)
+
+        #print(f"\tprosumer = {self.has_pv}, actual_demand - forecast = {forecast_demand}")
+
+        return forecast_demand
+    
+
+    def forecast_excess_no_storage_simple(self):
+        """ 
+        
+        
+        """
+        #print(f"Household{self.index} Entered: forecast_excess_no_storage_simple current_minute = {self.current_minute}, current_increment = {self.current_increment}")
+        actual_demand = np.sum(self.electricity_use[self.current_minute:self.current_minute + self.increment]) / 1000 / 60
+        forecast_production = 0.0
+        #print(f"\tactual_demand: {actual_demand}")
+        
+        if self.perfect_forecast:
+            forecast_production = np.sum(self.solar_prod[self.current_minute:self.current_minute + self.increment]) / 1000 / 60
+        else:
+            forecast_production = (self.solar_prod[self.current_minute] / 1000) * (self.increment / 60.0)
+
+        #print(f"\t perfect_forecast = {self.perfect_forecast}, forecast_production: {forecast_production} ")
+
+        if not self.has_pv:
+            forecast_production = 0
+        forecast_excess = max(forecast_production - actual_demand, 0)
+        #print(f"\t has pv = {self.has_pv}, excess forecast - demand = {forecast_excess}")
+
+        return forecast_excess
+
+
+    def fill_solar_prod_forecast_increment(self):
+        if self.current_increment == 1:
+            self.solar_prod_forecast_increment = np.zeros(self.number_increments)
+        
+        actual_production = 0.0
+        for i in range(self.increment):
+            if self.has_pv:
+                actual_production += (self.solar_prod_forecast[self.current_minute + i] / 1000.0) / 60.0
+            else: 
+                pass
+        
+        self.solar_prod_forecast_increment[self.current_increment - 1] = actual_production
+
 
     def __str__(self):
         return (f"Household(Index: {self.index}, Has PV: {'Yes' if self.has_pv else 'No'}, "

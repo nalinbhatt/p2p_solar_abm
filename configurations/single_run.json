@@ -24,6 +24,7 @@
         {"Index": 23, "Floor Area": 1626.926456, "hasPV": false, "WTA": 0.255953598, "WTP": 0.214177478},
         {"Index": 24, "Floor Area": 1364.471513, "hasPV": false, "WTA": 0.285248519, "WTP": 0.280954144},
         {"Index": 25, "Floor Area": 1188.246266, "hasPV": false, "WTA": 0.324489474, "WTP": 0.189432382}
-    ]
+    ], 
+    "AMM": {"E_tokens": 1000, "M_tokens": 1000, "transaction_fee": 0} 
     
  }
