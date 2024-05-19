@@ -197,7 +197,8 @@ class Market:
             
             self.exchangeNoStorage()
             print(f"-"*20, f"timestep : {timestep}", f"-"*20)
-
+            self.current_minute += self.increment #we update 
+            self.current_increment +=1 
             return 
 
     
@@ -241,8 +242,7 @@ class Market:
                 print(f"zero excess shutting down now")
                 continuation_flag = False
 
-            buyer_count = np.sum(demand > 0)
-            seller_count = np.sum(excess > 0)
+            
             buyer_index = np.where(demand > 0)[0]
             seller_index = np.where(excess > 0)[0]
 
@@ -262,7 +262,6 @@ class Market:
             if not buyers_ordered or not sellers_ordered or self.households[buyers_ordered[0]].get_wtp() < self.households[sellers_ordered[0]].get_wta():
                 continuation_flag = False
 
-
             try:
                 print(f"wtp arr = {self.households[buyers_ordered[0]].get_wtp()}")
                 print(f"wta arr = {self.households[sellers_ordered[0]].get_wta()}")
@@ -277,8 +276,6 @@ class Market:
                 print(f"Match number : {i + 1}")
                 seller_index2 = sellers_ordered[i]
                 buyer_index2 = buyers_ordered[i]
-
-
 
                 seller_wta = self.households[seller_index2].get_wta()
                 buyer_wtp = self.households[buyer_index2].get_wtp()
@@ -304,6 +301,7 @@ class Market:
 
         for i in range(self.number_houses):
             self.households[i].fill_solar_prod_forecast_increment()
+
 
 
     def adjustIrradiance(self, irradianceArray):
