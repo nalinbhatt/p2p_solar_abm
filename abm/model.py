@@ -47,13 +47,13 @@ class Market:
         self.current_minute = 0 #start at 0 minute
         self.current_increment = 1 #refers to the period for which trading will take place
         self.number_increments = self.minutes_in_month // self.increment
+        self.number_houses = 25 #Number of household agents within the simulation
         
         # Simulation Configuration
         self.storage_sim = 1
         self.perfect_forecasting = self.sim_config["perfect_forecasting"]
         self.lag_increments = 1
-        self.number_houses = 25 #Number of household agents within the simulation
-        self.simulation_steps = 20 
+       
         
         # Arrays and Matrices for Simulation Data
         self.annual_elec_savings = [0.0] * self.simulation_steps
