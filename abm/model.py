@@ -1,10 +1,14 @@
 from abm.household import Household
-import json 
+from abm.amm import AMM 
 import pandas as pd
 import os
 import numpy as np 
 import math 
 import csv 
+from scipy.interpolate import interp1d
+from scipy.optimize import fsolve
+import random
+
 
 
 class Market:
@@ -103,6 +107,7 @@ class Market:
         print(f"shortfall = {self.shortfall}")
         print(f"overproduction = {self.overproduction}")
 
+
     def initialize_households(self):
         """ 
         Initialize the parameters of the households. Note, the model stores each
@@ -195,9 +200,17 @@ class Market:
         self.initialize_households()
         print(f"-"*30, "Initialization Complete", f"-"*30)
 
+        exchange_type = self.sim_config["exchange_type"]
         for timestep in range(self.number_increments): 
             #print(f"-"*20, f"timestep : {timestep}", f"-"*20)
-            self.exchangeNoStorage()
+            
+            if exchange_type == "bilateral":
+                self.exchangeNoStorage()
+            elif exchange_type == "amm":
+                self.amm_exchange()
+
+
+    
             self.current_minute += self.increment #we update 
             self.current_increment +=1 
 
@@ -208,10 +221,183 @@ class Market:
         print(f"current_minute = {self.current_minute}")
         print(f"current_increment = {self.current_increment}")
 
-
         self.tally_op_sf_hh()
         self.tally_op_sf_totals()
 
+    def amm_exchange(self): 
+        """ 
+        Creates an amm exchange object. Initializes it's liquidity based on the 
+        equilibrium price and liquidity_amm_k values
+        """
+
+        #print(f"-"*15, "STARTING AMM EXCHANGE", f"-"*15)
+
+        excess = np.zeros(self.number_houses)
+        demand = np.zeros(self.number_houses)
+        wtp_arr = np.zeros(self.number_houses)
+        wta_arr = np.zeros(self.number_houses)
+
+        #print(f"Exchange No Storage: current_round = {current_round}")
+        for i in range(self.number_houses):
+            #print(f"-"*5, f"Household: {i}",f"-"*5)
+
+            household = self.households[i]
+            
+            demand[i] = max(household.forecast_demand_no_storage_simple() - self.buyer_history[i][self.current_increment - 1][0], 0)
+            excess[i] = max(household.forecast_excess_no_storage_simple() - self.seller_history[i][self.current_increment - 1][0], 0)
+            
+            wtp_arr[i] = household.get_wtp()
+            wta_arr[i] = household.get_wta()
+        
+        # print(f"demand : {demand}")
+        # print(f"excess : {excess}")
+        # print(f"wtp_arr = {wtp_arr}")
+        # print(f"wta_arr = {wta_arr}")
+    
+        # Boolean flag for zero demand
+        zero_demand = np.all(demand <= 0)
+
+        # Boolean flag for zero excess
+        zero_excess = np.all(excess <= 0)
+       
+        if zero_excess or zero_demand:
+            pass
+
+        else:
+            buyer_index = np.where(demand > 0)[0]
+            seller_index = np.where(excess > 0)[0]
+
+            # Order buyers by willingness to pay (WTP)
+            buyers_ordered = sorted(buyer_index, key=lambda x: self.households[x].get_wtp(), reverse=True)
+            # Order sellers by willingness to accept (WTA)
+            sellers_ordered = sorted(seller_index, key=lambda x: self.households[x].get_wta())
+            
+            # print(f"buyers_index= {buyer_index}")
+            # print(f"seller_index= {seller_index}")
+            # print(f"buyers_ordered= {buyers_ordered}")
+            # print(f"sellers_ordered= {sellers_ordered}")
+
+            buyer_demand = demand[buyers_ordered]
+            excess_supply = excess[sellers_ordered]
+            buyer_wtp = wtp_arr[buyers_ordered]
+            seller_wta = wta_arr[sellers_ordered]
+
+            # print(f"buyer_demand= {buyer_demand}")
+            # print(f"excess_supply= {excess_supply}")
+            # print(f"buyer_wtp= {buyer_wtp}")
+            # print(f"seller_wta= {seller_wta}")
+            # Calculate cumulative demand and supply
+            cumulative_demand = np.cumsum(buyer_demand)
+            cumulative_supply = np.cumsum(excess_supply)
+
+            # Interpolation functions for cumulative demand and supply
+            cumulative_demand_interp = interp1d(buyer_wtp, cumulative_demand, kind='linear', fill_value="extrapolate")
+            cumulative_supply_interp = interp1d(seller_wta, cumulative_supply, kind='linear', fill_value="extrapolate")
+
+            # Define the equilibrium function
+            def equilibrium_function(price):
+                return cumulative_demand_interp(price) - cumulative_supply_interp(price)
+            
+            # Solve for the equilibrium price
+            initial_guess = np.mean(buyer_wtp)  # Initial guess can be the mean of WTP values
+            equilibrium_price = fsolve(equilibrium_function, initial_guess)[0]
+
+            #amount of tokens to use to initialize the AMM 
+            x_token_amt, y_token_amt = self.determine_amm_liquidity(equilibrium_price)
+            
+            print(x_token_amt, y_token_amt)
+            #setup the amm
+            amm = AMM(transaction_fee= 0, debug= False)
+            amm.setup_pool(quantity_x=x_token_amt, quantity_y= y_token_amt)
+
+
+            household_index_list = list(range(self.number_houses))
+            
+            #print(f"household_index_list = {household_index_list}")
+            random.shuffle(household_index_list) #shuffle the list in place
+            #print(f"household_index_list = {household_index_list}")
+
+            #buyers and sellers make bids in random order
+            for i in household_index_list:
+                household = self.households[i]
+                demand = household.forecast_demand_no_storage_simple()
+                excess = household.forecast_excess_no_storage_simple()
+                wtp = household.get_wtp()
+                wta = household.get_wta()
+                
+                if demand > 0 : 
+                    token = "y" #energy token within our simulation
+                    token_quantity_requested = demand
+                    max_price = demand*wtp
+
+                    #print(f"token = {token}")
+                    #print(f"token_quantity_requested = {token_quantity_requested}")
+                    #print(f"max_price = {max_price}")
+
+                    trade_dict = amm.buy_tokens_max_price(token, 
+                                            token_quantity_requested,
+                                            max_price)
+                    if trade_dict["quantity_needed"] == "NoTrade":
+                        continue
+
+                    else: 
+                        #print(f"trade_dict = {trade_dict}")
+                        amount_spend = trade_dict["quantity_needed"] #amount of token x spent
+                        self.buyer_history[i][self.current_increment - 1][0] += demand
+                        self.buyer_history[i][self.current_increment - 1][1] += amount_spend
+                        #print(f"buyer_history: {self.buyer_history[i]}")
+
+                elif excess > 0:
+                    token = "x"
+                    quantity_for_sale = excess
+                    min_price = excess*wta
+
+                    #print(f"token = {token}")
+                    #print(f"quantity_for_sale = {quantity_for_sale}")
+                    #print(f"min_price = {min_price}")
+
+                    trade_dict = amm.sell_tokens_min_price(token, 
+                                              quantity_for_sale,
+                                              min_price)
+
+                    if trade_dict["quantity_returned"] == "NoTrade":
+                        continue
+
+                    else:
+                        #print(f"trade_dict = {trade_dict}")
+                        amount_recieved= trade_dict["quantity_returned"] #amount of token x spent
+                        self.seller_history[i][self.current_increment - 1][0] += quantity_for_sale
+                        self.seller_history[i][self.current_increment - 1][1] += amount_recieved
+                        #print(f"seller_history: {self.seller_history[i]}")
+
+                else: #if households have no demand or supply 
+                    pass 
+        
+        #print(f"-"*15, "ENDING AMM EXCHANGE", f"-"*15)
+            
+        for i in range(self.number_houses):
+            self.households[i].fill_solar_prod_forecast_increment()
+    
+
+    def determine_amm_liquidity(self, equilibrium_price):
+        """ 
+        determines the amount of money tokens (x tokens) and 
+        energy tokens (y tokens) that the protocol should be initialized with 
+        using the config parameter amm_liquidity_k
+
+        INPUT: 
+            equilibrium_price
+        RETURN: 
+            x_token_amt (float), y_token_amt (float)
+            
+        """
+        k = self.sim_config["amm_liquidity_k"]
+        
+        y_token_amt = np.sqrt(k/equilibrium_price)
+
+        x_token_amt = y_token_amt * equilibrium_price
+
+        return x_token_amt, y_token_amt
 
     def tally_op_sf_hh(self):
         """
@@ -520,11 +706,21 @@ class Market:
             ])
 
 
-
     def exchangeNoStorage(self):
-        continuation_flag = True
-        current_round = 0
+        """
+        Bilateral exchange method with no storage, adopted from the Monroe et. al 
+        model. Called each timestep (hour) within the simulation to execute exchange
+        between prosumers and consumers.  
+        
+        INPUT: 
+            None 
+        OUTPUT: 
+            None
 
+        """
+        
+        continuation_flag = True #Tracks if the ending condition is met
+        current_round = 0 #number of rounds of trading 
 
         while continuation_flag:
             excess = np.zeros(self.number_houses)
@@ -539,19 +735,6 @@ class Market:
                 demand[i] = max(household.forecast_demand_no_storage_simple() - self.buyer_history[i][self.current_increment - 1][0], 0)
                 excess[i] = max(household.forecast_excess_no_storage_simple() - self.seller_history[i][self.current_increment - 1][0], 0)
                 
-                # if self.forecasting_method == 0:  # Perfect forecasting
-                #     # household.perfect_forecast = True
-
-                #     print(f"buyer History: {self.buyer_history[i][self.current_increment - 1][0]}")
-                #     demand[i] = max(household.forecast_demand_no_storage_simple() - self.buyer_history[i][self.current_increment - 1][0], 0)
-                #     excess[i] = max(household.forecast_excess_no_storage_simple() - self.seller_history[i][self.current_increment - 1][0], 0)
-                # elif self.forecasting_method == 1:  # Simple forecasting
-                #     demand[i] = max(household.forecast_demand_no_storage_simple() - self.buyer_history[i][self.current_increment - 1][0], 0)
-                #     excess[i] = max(household.forecast_excess_no_storage_simple() - self.seller_history[i][self.current_increment - 1][0], 0)
-                # elif self.forecasting_method == 2:  # Complex forecasting
-                #     demand[i] = max(household.forecast_demand_no_storage_complex() - self.buyer_history[i][self.current_increment - 1][0], 0)
-                #     excess[i] = max(household.forecast_excess_no_storage_complex() - self.seller_history[i][self.current_increment - 1][0], 0)
-
             # print(f"demand : {demand}")
             # print(f"excess : {excess}")
            
@@ -585,17 +768,14 @@ class Market:
             # Boolean flag to check WTA and WTP of first paired traders
             if not buyers_ordered or not sellers_ordered or self.households[buyers_ordered[0]].get_wtp() < self.households[sellers_ordered[0]].get_wta():
                 continuation_flag = False
-
             # try:
             #     print(f"wtp arr = {self.households[buyers_ordered[0]].get_wtp()}")
             #     print(f"wta arr = {self.households[sellers_ordered[0]].get_wta()}")
             # except: 
             #     print(f"buyers_ordered or sellers_ordered empty")
             #     print(f"continuation_flag = {continuation_flag}")
-                
 
             # print(f"-"*5, f"Exchange Time", f"-"*5)
-
             for i in range(total_exchanges):
                 #print(f"Match number : {i + 1}")
                 seller_index2 = sellers_ordered[i]
@@ -679,6 +859,7 @@ class Market:
                 collectorRad[currentMinute] = beamRad[currentMinute] + diffuseRad[currentMinute] + reflectedRad[currentMinute]
 
         return collectorRad
+
 
     def solarNoon(self, n):
         """ 

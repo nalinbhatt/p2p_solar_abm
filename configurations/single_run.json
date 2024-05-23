@@ -1,6 +1,6 @@
 {"prosumer_count": 5, 
-"exchange_type": "bilateral", 
-"perfect_forecasting": false, 
-"n_runs": 10,
-"amm_liquidity_k": null
+"exchange_type": "amm", 
+"perfect_forecasting": true, 
+"n_runs": 1,
+"amm_liquidity_k": 1000
 }

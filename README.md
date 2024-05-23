@@ -1,14 +1,9 @@
 # Testing optimal AMM liquidity in P2P Energy Markets: A bold endeavor
 Nalin Bhatt 
 
-This is an Agent-based modeling project that is based on the Monroe et. al (2023) model. We extend the original model by replacing the exchange mechanism with an Automated Market Makers (AMMs) and monitoring effects on amounts of solar electricity sold within the market. 
+This is an Agent-based modeling project that is based on the Monroe et. al (2023) model. We extend the original model by adding an Automated Market Makers (AMMs) and monitoring effects on amounts of solar electricity sold within the market. 
 
 
-# Project Name
-
-## Overview
-
-Brief description of the project.
 
 ## Setup Instructions
 
@@ -37,7 +32,20 @@ pip install -r requirements.txt
 
 
 
+# Running a single config file 
 
+```bash
+python single_run.py
+```
+
+# Running batch simulations 
+```bash
+python batch_run.py
+```
+
+
+
+# Repository Structure
 
 ├── LICENSE
 ├── Readme.md
