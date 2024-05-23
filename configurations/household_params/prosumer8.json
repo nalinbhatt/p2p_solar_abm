@@ -1,0 +1,29 @@
+{
+    "household_params": [
+        {"Index": 1, "Floor Area": 1794.060594, "hasPV": true, "WTA": 0.193458343, "WTP": 0.327157819},
+        {"Index": 2, "Floor Area": 1276.185657, "hasPV": false, "WTA": 0.31663482, "WTP": 0.225051146},
+        {"Index": 3, "Floor Area": 1312.766756, "hasPV": false, "WTA": 0.338089036, "WTP": 0.231175039},
+        {"Index": 4, "Floor Area": 1267.052101, "hasPV": false, "WTA": 0.309273063, "WTP": 0.330812186},
+        {"Index": 5, "Floor Area": 1204.910006, "hasPV": false, "WTA": 0.30690817, "WTP": 0.29025034},
+        {"Index": 6, "Floor Area": 1265.342378, "hasPV": false, "WTA": 0.242292412, "WTP": 0.32583961},
+        {"Index": 7, "Floor Area": 1440.412471, "hasPV": false, "WTA": 0.176116508, "WTP": 0.333794556},
+        {"Index": 8, "Floor Area": 1269.122911, "hasPV": false, "WTA": 0.328461412, "WTP": 0.268387898},
+        {"Index": 9, "Floor Area": 1329.306071, "hasPV": false, "WTA": 0.303748402, "WTP": 0.172837761},
+        {"Index": 10, "Floor Area": 1370.455198, "hasPV": false, "WTA": 0.293318765, "WTP": 0.313195407},
+        {"Index": 11, "Floor Area": 1594.227075, "hasPV": false, "WTA": 0.328318274, "WTP": 0.307858268},
+        {"Index": 12, "Floor Area": 1377.99581, "hasPV": false, "WTA": 0.279814128, "WTP": 0.307377034},
+        {"Index": 13, "Floor Area": 2077.613032, "hasPV": true, "WTA": 0.22460925, "WTP": 0.322874196},
+        {"Index": 14, "Floor Area": 1619.030254, "hasPV": true, "WTA": 0.209031596, "WTP": 0.300260237},
+        {"Index": 15, "Floor Area": 1259.73516, "hasPV": false, "WTA": 0.317303627, "WTP": 0.196788229},
+        {"Index": 16, "Floor Area": 1546.878811, "hasPV": false, "WTA": 0.229564241, "WTP": 0.273712312},
+        {"Index": 17, "Floor Area": 1354.786446, "hasPV": false, "WTA": 0.235548088, "WTP": 0.264515215},
+        {"Index": 18, "Floor Area": 1730.283515, "hasPV": true, "WTA": 0.267265628, "WTP": 0.284966571},
+        {"Index": 19, "Floor Area": 2040.527486, "hasPV": true, "WTA": 0.25189532, "WTP": 0.315225783},
+        {"Index": 20, "Floor Area": 1385.956773, "hasPV": false, "WTA": 0.268302121, "WTP": 0.318651159},
+        {"Index": 21, "Floor Area": 1685.138333, "hasPV": true, "WTA": 0.23233299, "WTP": 0.194435687},
+        {"Index": 22, "Floor Area": 1635.749191, "hasPV": true, "WTA": 0.280561767, "WTP": 0.254999299},
+        {"Index": 23, "Floor Area": 1626.926456, "hasPV": true, "WTA": 0.255953598, "WTP": 0.214177478},
+        {"Index": 24, "Floor Area": 1364.471513, "hasPV": false, "WTA": 0.285248519, "WTP": 0.280954144},
+        {"Index": 25, "Floor Area": 1188.246266, "hasPV": false, "WTA": 0.324489474, "WTP": 0.189432382}
+    ]
+}

@@ -3,21 +3,24 @@ import numpy as np
 
 
 class Household:
-    def __init__(self, index, has_pv, floor_area, wta, wtp):
+    def __init__(self, index, has_pv, floor_area, wta, wtp, perfect_forecasting, run):
+
         self.index = index # index
         self.has_pv = has_pv # has solar or not 
         self.floor_area = floor_area # floor area 
         self.wta = wta  # willingness to accept, reservation price for selling
         self.wtp = wtp # willingness to pay, reservation price for buying
         self.roof_area = self.floor_area * 1.12
-        self.perfect_forecast = True #All prosumers perfectly calculate their values. 
-
+        self.perfect_forecasting = perfect_forecasting #All prosumers perfectly calculate their values. 
         self.days_month = 30 
         self.minutes_month = self.days_month * 24 * 60
         self.increment = 60
-        #TODO: set the following back to 0 and 1 
-        self.current_minute = 2100 # this is the current minutely step the simulation household is at 
-        self.current_increment = 36 # this is the current hourly step the simulated household is at 
+        
+        #Simulation level information, useful in datalogging
+        self.run = run 
+       
+        self.current_minute = 0 # this is the current minutely step the simulation household is at 
+        self.current_increment = 1 # this is the current hourly step the simulated household is at 
 
         self.number_increments = self.minutes_month // self.increment
         self.increments_per_hour = 60 // self.increment
@@ -66,6 +69,10 @@ class Household:
         self.calc_annual_prod()
         self.calc_prod_20()
 
+    def step_increment(self):
+
+        self.current_increment +=1
+        self.current_minute += self.increment
     
     def calc_peak_power(self):
         self.peak_power = self.irradiation * self.solar_proportion * self.roof_area * self.cell_efficiency
@@ -125,11 +132,11 @@ class Household:
         forecast_production = 0.0
         #print(f"\tactual_demand: {actual_demand}")
     
-        if self.perfect_forecast:
+        if self.perfect_forecasting:
             forecast_production = np.sum(self.solar_prod[self.current_minute:self.current_minute + self.increment]) / 1000 / 60
         else:
             forecast_production = (self.solar_prod[self.current_minute] / 1000) * (self.increment / 60.0)
-        #print(f"\t perfect_forecast = {self.perfect_forecast}, forecast_production: {forecast_production} ")
+        #print(f"\t perfect_forecasting = {self.perfect_forecasting}, forecast_production: {forecast_production} ")
     
         if not self.has_pv:
             forecast_production = 0
@@ -153,12 +160,12 @@ class Household:
         forecast_production = 0.0
         #print(f"\tactual_demand: {actual_demand}")
         
-        if self.perfect_forecast:
+        if self.perfect_forecasting:
             forecast_production = np.sum(self.solar_prod[self.current_minute:self.current_minute + self.increment]) / 1000 / 60
         else:
             forecast_production = (self.solar_prod[self.current_minute] / 1000) * (self.increment / 60.0)
 
-        #print(f"\t perfect_forecast = {self.perfect_forecast}, forecast_production: {forecast_production} ")
+        #print(f"\t perfect_forecasting = {self.perfect_forecasting}, forecast_production: {forecast_production} ")
 
         if not self.has_pv:
             forecast_production = 0

@@ -1,0 +1,1346 @@
+[
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 1,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 2,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 3,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 4,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 5,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 6,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 7,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 8,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 9,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 10,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 11,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": true,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 50,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 100,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 200,
+        "exchange_type": "amm",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "bilateral",
+        "n_runs": 10
+    },
+    {
+        "prosumer_count": 12,
+        "perfect_forecasting": false,
+        "amm_liquidity_k": 500,
+        "exchange_type": "amm",
+        "n_runs": 10
+    }
+]
