@@ -123,7 +123,7 @@ class Household:
 
     def forecast_demand_no_storage_simple(self):
         """ 
-        Forecast Demand 
+       
         """
 
         #print(f"Household{self.index} Entered: forecast_demand_no_storage_simple current_minute = {self.current_minute}, current_increment = {self.current_increment}")

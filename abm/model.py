@@ -706,6 +706,9 @@ class Market:
             ])
 
 
+            
+
+
     def exchangeNoStorage(self):
         """
         Bilateral exchange method with no storage, adopted from the Monroe et. al 
