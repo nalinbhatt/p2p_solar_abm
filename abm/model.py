@@ -51,9 +51,15 @@ class Market:
         
         # Simulation Configuration
         self.storage_sim = 1
+        self.forecasting_method = 0
+        self.lag_increments = 1
+        self.simulation_steps = 20 
+        
+        # Simulation Configuration
+        self.storage_sim = 1
         self.perfect_forecasting = self.sim_config["perfect_forecasting"]
         self.lag_increments = 1
-       
+
         
         # Arrays and Matrices for Simulation Data
         self.annual_elec_savings = [0.0] * self.simulation_steps
