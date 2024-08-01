@@ -8,8 +8,8 @@ This is an Agent-based modeling project that is based on the Monroe et. al (2023
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/yourrepository.git
-cd yourrepository
+git clone https://github.com/nalinbhatt/p2p_solar_abm.git
+cd p2p_solar_abm
 ```
 
 # Create the environment
@@ -44,7 +44,7 @@ python batch_run.py
 
 
 # Repository Structure
-
+```
 LICENSE  
 ├── **Readme.md**: main folder that contains model code   
 ├── **Solar Market - United States Simulations.zip** : Original simulation java code from which this simulation is adapted  
@@ -81,5 +81,5 @@ LICENSE
 ├── simulation_output  
 │   └── **aggregate_sim_data.csv** : ALl the aggregate simulation data gets logged to the file after batch runs, individual time-step data is being tracked in the model but not currently logged   
 └── **single_run.py**: contains code to run a single_run.json   
-
+```
 
